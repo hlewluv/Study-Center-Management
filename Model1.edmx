@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QLSVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="tentaikhoan" />
+          </Key>
+          <Property Name="tentaikhoan" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="matkhau" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblDiem">
+          <Key>
+            <PropertyRef Name="mamonhoc" />
+            <PropertyRef Name="magiaovien" />
+            <PropertyRef Name="masinhvien" />
+          </Key>
+          <Property Name="nguoitao" Type="varchar" MaxLength="50" />
+          <Property Name="mamonhoc" Type="int" Nullable="false" />
+          <Property Name="magiaovien" Type="int" Nullable="false" />
+          <Property Name="masinhvien" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="diemTX" Type="float" />
+          <Property Name="diemGK" Type="float" />
+          <Property Name="diemCK" Type="float" />
+        </EntityType>
+        <EntityType Name="tblGiaoVien">
+          <Key>
+            <PropertyRef Name="magiaovien" />
+          </Key>
+          <Property Name="magiaovien" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tengiaovien" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="gioitinh" Type="tinyint" />
+          <Property Name="ngaysinh" Type="date" />
+          <Property Name="dienthoai" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblMonHoc">
+          <Key>
+            <PropertyRef Name="mamonhoc" />
+          </Key>
+          <Property Name="nguoitao" Type="varchar" MaxLength="50" />
+          <Property Name="mamonhoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenmonhoc" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSinhVien">
+          <Key>
+            <PropertyRef Name="masinhvien" />
+          </Key>
+          <Property Name="nguoitao" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="masinhvien" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tensinhvien" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="gioitinh" Type="tinyint" />
+          <Property Name="ngaysinh" Type="date" />
+          <Property Name="dienthoai" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tblDiem_tblGiaoVien">
+          <End Role="tblGiaoVien" Type="Self.tblGiaoVien" Multiplicity="1" />
+          <End Role="tblDiem" Type="Self.tblDiem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGiaoVien">
+              <PropertyRef Name="magiaovien" />
+            </Principal>
+            <Dependent Role="tblDiem">
+              <PropertyRef Name="magiaovien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDiem_tblMonHoc">
+          <End Role="tblMonHoc" Type="Self.tblMonHoc" Multiplicity="1" />
+          <End Role="tblDiem" Type="Self.tblDiem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMonHoc">
+              <PropertyRef Name="mamonhoc" />
+            </Principal>
+            <Dependent Role="tblDiem">
+              <PropertyRef Name="mamonhoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDiem_tblSinhVien">
+          <End Role="tblSinhVien" Type="Self.tblSinhVien" Multiplicity="1" />
+          <End Role="tblDiem" Type="Self.tblDiem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSinhVien">
+              <PropertyRef Name="masinhvien" />
+            </Principal>
+            <Dependent Role="tblDiem">
+              <PropertyRef Name="masinhvien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLSVModelStoreContainer">
+          <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDiem" EntityType="Self.tblDiem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGiaoVien" EntityType="Self.tblGiaoVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMonHoc" EntityType="Self.tblMonHoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSinhVien" EntityType="Self.tblSinhVien" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblDiem_tblGiaoVien" Association="Self.FK_tblDiem_tblGiaoVien">
+            <End Role="tblGiaoVien" EntitySet="tblGiaoVien" />
+            <End Role="tblDiem" EntitySet="tblDiem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDiem_tblMonHoc" Association="Self.FK_tblDiem_tblMonHoc">
+            <End Role="tblMonHoc" EntitySet="tblMonHoc" />
+            <End Role="tblDiem" EntitySet="tblDiem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDiem_tblSinhVien" Association="Self.FK_tblDiem_tblSinhVien">
+            <End Role="tblSinhVien" EntitySet="tblSinhVien" />
+            <End Role="tblDiem" EntitySet="tblDiem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLSVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TaiKhoan">
+          <Key>
+            <PropertyRef Name="tentaikhoan" />
+          </Key>
+          <Property Name="tentaikhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="matkhau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblDiem">
+          <Key>
+            <PropertyRef Name="mamonhoc" />
+            <PropertyRef Name="magiaovien" />
+            <PropertyRef Name="masinhvien" />
+          </Key>
+          <Property Name="nguoitao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mamonhoc" Type="Int32" Nullable="false" />
+          <Property Name="magiaovien" Type="Int32" Nullable="false" />
+          <Property Name="masinhvien" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="diemTX" Type="Double" />
+          <Property Name="diemGK" Type="Double" />
+          <Property Name="diemCK" Type="Double" />
+          <NavigationProperty Name="tblGiaoVien" Relationship="Self.FK_tblDiem_tblGiaoVien" FromRole="tblDiem" ToRole="tblGiaoVien" />
+          <NavigationProperty Name="tblMonHoc" Relationship="Self.FK_tblDiem_tblMonHoc" FromRole="tblDiem" ToRole="tblMonHoc" />
+          <NavigationProperty Name="tblSinhVien" Relationship="Self.FK_tblDiem_tblSinhVien" FromRole="tblDiem" ToRole="tblSinhVien" />
+        </EntityType>
+        <EntityType Name="tblGiaoVien">
+          <Key>
+            <PropertyRef Name="magiaovien" />
+          </Key>
+          <Property Name="magiaovien" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tengiaovien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gioitinh" Type="Byte" />
+          <Property Name="ngaysinh" Type="DateTime" Precision="0" />
+          <Property Name="dienthoai" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblDiems" Relationship="Self.FK_tblDiem_tblGiaoVien" FromRole="tblGiaoVien" ToRole="tblDiem" />
+        </EntityType>
+        <EntityType Name="tblMonHoc">
+          <Key>
+            <PropertyRef Name="mamonhoc" />
+          </Key>
+          <Property Name="nguoitao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mamonhoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenmonhoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblDiems" Relationship="Self.FK_tblDiem_tblMonHoc" FromRole="tblMonHoc" ToRole="tblDiem" />
+        </EntityType>
+        <EntityType Name="tblSinhVien">
+          <Key>
+            <PropertyRef Name="masinhvien" />
+          </Key>
+          <Property Name="nguoitao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="masinhvien" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tensinhvien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gioitinh" Type="Byte" />
+          <Property Name="ngaysinh" Type="DateTime" Precision="0" />
+          <Property Name="dienthoai" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblDiems" Relationship="Self.FK_tblDiem_tblSinhVien" FromRole="tblSinhVien" ToRole="tblDiem" />
+        </EntityType>
+        <Association Name="FK_tblDiem_tblGiaoVien">
+          <End Role="tblGiaoVien" Type="Self.tblGiaoVien" Multiplicity="1" />
+          <End Role="tblDiem" Type="Self.tblDiem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGiaoVien">
+              <PropertyRef Name="magiaovien" />
+            </Principal>
+            <Dependent Role="tblDiem">
+              <PropertyRef Name="magiaovien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDiem_tblMonHoc">
+          <End Role="tblMonHoc" Type="Self.tblMonHoc" Multiplicity="1" />
+          <End Role="tblDiem" Type="Self.tblDiem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMonHoc">
+              <PropertyRef Name="mamonhoc" />
+            </Principal>
+            <Dependent Role="tblDiem">
+              <PropertyRef Name="mamonhoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDiem_tblSinhVien">
+          <End Role="tblSinhVien" Type="Self.tblSinhVien" Multiplicity="1" />
+          <End Role="tblDiem" Type="Self.tblDiem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSinhVien">
+              <PropertyRef Name="masinhvien" />
+            </Principal>
+            <Dependent Role="tblDiem">
+              <PropertyRef Name="masinhvien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLSV_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TaiKhoans" EntityType="Self.TaiKhoan" />
+          <EntitySet Name="tblDiems" EntityType="Self.tblDiem" />
+          <EntitySet Name="tblGiaoViens" EntityType="Self.tblGiaoVien" />
+          <EntitySet Name="tblMonHocs" EntityType="Self.tblMonHoc" />
+          <EntitySet Name="tblSinhViens" EntityType="Self.tblSinhVien" />
+          <AssociationSet Name="FK_tblDiem_tblGiaoVien" Association="Self.FK_tblDiem_tblGiaoVien">
+            <End Role="tblGiaoVien" EntitySet="tblGiaoViens" />
+            <End Role="tblDiem" EntitySet="tblDiems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDiem_tblMonHoc" Association="Self.FK_tblDiem_tblMonHoc">
+            <End Role="tblMonHoc" EntitySet="tblMonHocs" />
+            <End Role="tblDiem" EntitySet="tblDiems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDiem_tblSinhVien" Association="Self.FK_tblDiem_tblSinhVien">
+            <End Role="tblSinhVien" EntitySet="tblSinhViens" />
+            <End Role="tblDiem" EntitySet="tblDiems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLSVModelStoreContainer" CdmEntityContainer="QLSV_Entities">
+          <EntitySetMapping Name="TaiKhoans">
+            <EntityTypeMapping TypeName="QLSVModel.TaiKhoan">
+              <MappingFragment StoreEntitySet="TaiKhoan">
+                <ScalarProperty Name="tentaikhoan" ColumnName="tentaikhoan" />
+                <ScalarProperty Name="matkhau" ColumnName="matkhau" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDiems">
+            <EntityTypeMapping TypeName="QLSVModel.tblDiem">
+              <MappingFragment StoreEntitySet="tblDiem">
+                <ScalarProperty Name="nguoitao" ColumnName="nguoitao" />
+                <ScalarProperty Name="mamonhoc" ColumnName="mamonhoc" />
+                <ScalarProperty Name="magiaovien" ColumnName="magiaovien" />
+                <ScalarProperty Name="masinhvien" ColumnName="masinhvien" />
+                <ScalarProperty Name="diemTX" ColumnName="diemTX" />
+                <ScalarProperty Name="diemGK" ColumnName="diemGK" />
+                <ScalarProperty Name="diemCK" ColumnName="diemCK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblGiaoViens">
+            <EntityTypeMapping TypeName="QLSVModel.tblGiaoVien">
+              <MappingFragment StoreEntitySet="tblGiaoVien">
+                <ScalarProperty Name="magiaovien" ColumnName="magiaovien" />
+                <ScalarProperty Name="tengiaovien" ColumnName="tengiaovien" />
+                <ScalarProperty Name="gioitinh" ColumnName="gioitinh" />
+                <ScalarProperty Name="ngaysinh" ColumnName="ngaysinh" />
+                <ScalarProperty Name="dienthoai" ColumnName="dienthoai" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMonHocs">
+            <EntityTypeMapping TypeName="QLSVModel.tblMonHoc">
+              <MappingFragment StoreEntitySet="tblMonHoc">
+                <ScalarProperty Name="nguoitao" ColumnName="nguoitao" />
+                <ScalarProperty Name="mamonhoc" ColumnName="mamonhoc" />
+                <ScalarProperty Name="tenmonhoc" ColumnName="tenmonhoc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSinhViens">
+            <EntityTypeMapping TypeName="QLSVModel.tblSinhVien">
+              <MappingFragment StoreEntitySet="tblSinhVien">
+                <ScalarProperty Name="nguoitao" ColumnName="nguoitao" />
+                <ScalarProperty Name="masinhvien" ColumnName="masinhvien" />
+                <ScalarProperty Name="tensinhvien" ColumnName="tensinhvien" />
+                <ScalarProperty Name="gioitinh" ColumnName="gioitinh" />
+                <ScalarProperty Name="ngaysinh" ColumnName="ngaysinh" />
+                <ScalarProperty Name="dienthoai" ColumnName="dienthoai" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
